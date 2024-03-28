@@ -102,7 +102,10 @@ return {
               group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
               callback = function(event2)
                 vim.lsp.buf.clear_references()
-                vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
+                vim.api.nvim_clear_autocmds {
+                  group = 'kickstart-lsp-highlight',
+                  buffer = event2.buf,
+                }
               end,
             })
           end
@@ -168,6 +171,17 @@ return {
             },
           },
         },
+        clangd = {},
+        gopls = {},
+        pyright = {},
+        -- rust_analyzer = {},
+        vimls = {},
+        cmake = {},
+        jsonls = {},
+        marksman = {},
+        bashls = {},
+        yamlls = {},
+        omnisharp = {},
       }
 
       -- Ensure the servers and tools above are installed
@@ -180,9 +194,38 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         -- You can add other tools here that you want Mason to install
+        'stylua', -- Used to format Lua code
+        -- { 'clang-format', version = '13.0.1' },
+        'clang-format',
+        'cmakelang',
+        'shfmt',
+        'black',
+        'shellcheck',
+        'markdownlint',
       })
 
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+
+      require('mason-lspconfig').setup {
+        ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
+        automatic_installation = false,
+        handlers = {
+          function(server_name)
+            local server = servers[server_name] or {}
+            -- This handles overriding only values explicitly passed
+            -- by the server configuration above. Useful when disabling
+            -- certain features of an LSP (for example, turning off formatting for tsserver)
+            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+            server.capabilities = require('custom.lsp-extra.capabilities').capabilities(server.capabilities)
+
+            local require_ok, conf_opts = pcall(require, 'custom.lsp-extra.servers.' .. server_name)
+            if require_ok then server = vim.tbl_deep_extend('force', server, conf_opts) end
+            require('lspconfig')[server_name].setup(server)
+          end,
+        },
+      }
+      -- Load external extra lsp stuff
+      require 'custom.lsp-extra'
 
       for name, server in pairs(servers) do
         vim.lsp.config(name, server)
