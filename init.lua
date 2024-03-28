@@ -90,11 +90,13 @@ P.S. You can delete this when you're done too. It's your config now! :)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+-- Set to true if you have a Nerd Font installed
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 require 'options'
+-- add custom settings before plugins
+require 'custom.settings'
 
 -- [[ Basic Keymaps ]]
 require 'keymaps'
@@ -105,5 +107,9 @@ require 'lazy-bootstrap'
 -- [[ Configure and install plugins ]]
 require 'lazy-plugins'
 
+-- add custom keymaps and autocommands
+require 'custom.keymaps'
+
+require 'custom.autocommands'
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
