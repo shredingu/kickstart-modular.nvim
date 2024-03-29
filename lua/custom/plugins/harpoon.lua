@@ -17,7 +17,7 @@ return {
     },
   },
   config = function(_, opts)
-    require('Comment').setup(opts)
+    require('harpoon').setup(opts)
     require('telescope').load_extension 'harpoon'
     require 'harpoon.cmd-ui'
     require 'harpoon.tmux'
