@@ -162,6 +162,16 @@ return {
             },
           },
         },
+        clangd = {},
+        gopls = {},
+        pyright = {},
+        rust_analyzer = {},
+        vimls = {},
+        cmake = {},
+        jsonls = {},
+        marksman = {},
+        bashls = {},
+        yamlls = {},
       }
 
       -- Ensure the servers and tools above are installed
@@ -177,6 +187,12 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        { 'clang-format', version = '13.0.1' },
+        'cmakelang',
+        'shfmt',
+        'black',
+        'shellcheck'
+
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -188,10 +204,19 @@ return {
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for tsserver)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+            server.capabilities = require('lsp-extra.capabilities').capabilities(server.capabilities)
+
+            local require_ok, conf_opts =
+              pcall(require, 'lsp-extra.servers.' .. server_name)
+            if require_ok then
+              server = vim.tbl_deep_extend('force', server, conf_opts)
+            end
             require('lspconfig')[server_name].setup(server)
           end,
         },
       }
+      -- Load external extra lsp stuff
+      require 'lsp-extra'
     end,
   },
 }
