@@ -1,5 +1,5 @@
 local lsp_extra_group =
-  vim.api.nvim_create_augroup('lsp-extra', { clear = true })
+  vim.api.nvim_create_augroup('custom.lsp-extra', { clear = true })
 
 local lsp_formatting = function(bufnr)
   vim.lsp.buf.format {

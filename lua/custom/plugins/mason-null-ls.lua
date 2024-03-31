@@ -6,6 +6,6 @@ return {
     'nvimtools/none-ls.nvim',
   },
   config = function()
-    require 'lsp-extra.null-ls' -- require your null-ls config here (example below)
+    require 'custom.lsp-extra.null-ls' -- require your null-ls config here (example below)
   end,
 }
