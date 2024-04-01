@@ -95,6 +95,7 @@ vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 require 'options'
+-- add custom settings before plugins
 require 'custom.settings'
 
 -- [[ Basic Keymaps ]]
@@ -106,6 +107,7 @@ require 'lazy-bootstrap'
 -- [[ Configure and install plugins ]]
 require 'lazy-plugins'
 
+-- add custom keymaps and autocommands
 require 'custom.keymaps'
 require 'custom.autocommands'
 -- The line beneath this is called `modeline`. See `:help modeline`
