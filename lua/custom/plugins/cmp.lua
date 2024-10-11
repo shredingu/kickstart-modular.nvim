@@ -173,11 +173,7 @@ return {
         formatting = {
           fields = { 'menu', 'abbr', 'kind' },
           format = function(entry, item)
-            item.abbr = string.format(
-              '%s %s',
-              kind_icons[item.kind],
-              string.sub(item.abbr, 1, 30)
-            )
+            item.abbr = string.format('%s %s', kind_icons[item.kind], string.sub(item.abbr, 1, 30))
             local menu_icon = {
               nvim_lsp = 'λ',
               luasnip = '⋗',

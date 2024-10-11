@@ -79,8 +79,7 @@ nnoremap('<leader>dq', '<cmd>DiffviewClose<cr>') -- open diffview
 nnoremap('<leader>gp', '<cmd>:ChatGPTEditWithInstructions<cr>')
 
 nnoremap('<leader>he', function()
-  local filepath = utils.get_homedir()
-    .. '/.config/nvim/lua/my/plugins/harpoon.lua'
+  local filepath = utils.get_homedir() .. '/.config/nvim/lua/my/plugins/harpoon.lua'
   vim.cmd('vsp ' .. filepath)
 end)
 nnoremap('<leader>hk', function()
