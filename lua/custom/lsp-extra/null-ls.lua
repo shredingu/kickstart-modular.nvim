@@ -4,10 +4,10 @@ local formatting = null_ls.builtins.formatting
 -- local diagnostics = null_ls.builtins.diagnostics
 
 local stylua_extra_args = {
-  '--indent-type',
-  'Spaces',
-  '--column-width',
-  '80',
+  -- '--indent-type',
+  -- 'Spaces',
+  -- '--column-width',
+  -- '80',
 }
 
 local shfmt_extra_args = {

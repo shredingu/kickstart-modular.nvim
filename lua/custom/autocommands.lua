@@ -1,7 +1,7 @@
 -- Probably this stuff is not needed
 --vim.api.nvim_create_augroup('cdpwd', {clear = true})
 --vim.api.nvim_create_autocmd('VimEnter', { group = 'cdpwd', pattern = '*', command = 'cd $PWD'})
-vim.cmd([[
+vim.cmd [[
 
  augroup _general_settings
     autocmd!
@@ -21,7 +21,7 @@ augroup _git
     autocmd FileType markdown setlocal wrap
     autocmd FileType markdown setlocal spell
   augroup end
-  ]])
+  ]]
 
 -- vim.api.nvim_create_augroup("my_formating", { clear = true })
 -- vim.api.nvim_create_autocmd("BufWritePre", {
