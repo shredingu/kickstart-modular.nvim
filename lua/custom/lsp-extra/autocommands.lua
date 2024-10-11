@@ -1,5 +1,4 @@
-local lsp_extra_group =
-  vim.api.nvim_create_augroup('custom.lsp-extra', { clear = true })
+local lsp_extra_group = vim.api.nvim_create_augroup('custom.lsp-extra', { clear = true })
 
 local lsp_formatting = function(bufnr)
   vim.lsp.buf.format {
@@ -96,51 +95,23 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup(
-    'kickstart-lsp-attach-extra',
-    { clear = true }
-  ),
+  group = vim.api.nvim_create_augroup('kickstart-lsp-attach-extra', { clear = true }),
   callback = function(event)
     local map = function(keys, func, desc, mode)
       mode = mode or 'n'
-      vim.keymap.set(
-        'n',
-        keys,
-        func,
-        { buffer = event.buf, desc = 'LSP: ' .. desc }
-      )
+      vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
     end
 
-    map(
-      'gl',
-      require('telescope.builtin').diagnostics,
-      '[G]oto Workspace diagnostics'
-    )
-    map(
-      '<leader>lf',
-      '<cmd>lua vim.lsp.buf.format{async = true }<cr>',
-      '[L]sp [F]ormat'
-    )
+    map('gl', require('telescope.builtin').diagnostics, '[G]oto Workspace diagnostics')
+    -- map('<leader>lf', '<cmd>lua vim.lsp.buf.format{async = true}<cr>', '[L]sp [F]ormat')
+    map('<leader>lf', function()
+      lsp_formatting(event.buf)
+    end, '[L]sp [F]ormat')
+
     map('<leader>li', '<cmd>LspInfo<cr>', '[L]sp [I]nfo')
-    map(
-      '<leader>lj',
-      '<cmd>lua vim.diagnostic.goto_next({buffer=0})<cr>',
-      '[L]sp diagnostic next'
-    )
-    map(
-      '<leader>lk',
-      '<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>',
-      '[L]sp diagnostic previous'
-    )
-    map(
-      '<leader>ls',
-      '<cmd>lua vim.lsp.buf.signature_help()<CR>',
-      '[L]sp [S]ignature'
-    )
-    map(
-      '<leader>lq',
-      '<cmd>lua vim.diagnostic.setloclist()<CR>',
-      '[L]sp diagnostic loclist'
-    )
+    map('<leader>lj', '<cmd>lua vim.diagnostic.goto_next({buffer=0})<cr>', '[L]sp diagnostic next')
+    map('<leader>lk', '<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>', '[L]sp diagnostic previous')
+    map('<leader>ls', '<cmd>lua vim.lsp.buf.signature_help()<CR>', '[L]sp [S]ignature')
+    map('<leader>lq', '<cmd>lua vim.diagnostic.setloclist()<CR>', '[L]sp diagnostic loclist')
   end,
 })
