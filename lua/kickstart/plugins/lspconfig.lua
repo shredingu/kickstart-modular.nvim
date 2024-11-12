@@ -210,13 +210,14 @@ return {
         clangd = {},
         gopls = {},
         pyright = {},
-        rust_analyzer = {},
+        -- rust_analyzer = {},
         vimls = {},
         cmake = {},
         jsonls = {},
         marksman = {},
         bashls = {},
         yamlls = {},
+        omnisharp = {},
       }
 
       -- Ensure the servers and tools above are installed
