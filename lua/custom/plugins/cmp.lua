@@ -123,13 +123,13 @@ return {
             select = false,
           },
           ['<Tab>'] = cmp.mapping(function(fallback)
-            local col = vim.fn.col '.' - 1
+            local suggestion = vim.fn['copilot#Accept']()
             if cmp.visible() then
               cmp.select_next_item(select_opts)
-            elseif col == 0 or vim.fn.getline('.'):sub(col, col):match '%s' then
-              fallback()
+            elseif suggestion ~= '' and type(suggestion) == 'string' then
+              vim.api.nvim_feedkeys(suggestion, 'i', true)
             else
-              cmp.complete()
+              fallback()
             end
           end, { 'i', 's' }),
           ['<S-Tab>'] = cmp.mapping(function(fallback)
