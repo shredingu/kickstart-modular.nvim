@@ -87,11 +87,6 @@ return {
         --
         -- No, but seriously. Please read `:help ins-completion`, it is really good!
         mapping = cmp.mapping.preset.insert {
-          -- Select the [n]ext item
-          ['<C-k>'] = cmp.mapping.select_next_item(),
-          -- Select the [p]revious item
-          ['<C-j>'] = cmp.mapping.select_prev_item(),
-
           -- Scroll the documentation window [b]ack / [f]orward
           ['<C-u>'] = cmp.mapping.scroll_docs(-4),
           ['<C-f>'] = cmp.mapping.scroll_docs(4),
@@ -123,13 +118,13 @@ return {
             select = false,
           },
           ['<Tab>'] = cmp.mapping(function(fallback)
-            local suggestion = vim.fn['copilot#Accept']()
+            local col = vim.fn.col '.' - 1
             if cmp.visible() then
               cmp.select_next_item(select_opts)
-            elseif suggestion ~= '' and type(suggestion) == 'string' then
-              vim.api.nvim_feedkeys(suggestion, 'i', true)
-            else
+            elseif col == 0 or vim.fn.getline('.'):sub(col, col):match '%s' then
               fallback()
+            else
+              cmp.complete()
             end
           end, { 'i', 's' }),
           ['<S-Tab>'] = cmp.mapping(function(fallback)
