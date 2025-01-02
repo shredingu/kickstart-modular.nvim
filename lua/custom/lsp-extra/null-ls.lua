@@ -1,7 +1,7 @@
 local null_ls = require 'null-ls'
 
 local formatting = null_ls.builtins.formatting
--- local diagnostics = null_ls.builtins.diagnostics
+local diagnostics = null_ls.builtins.diagnostics
 
 local stylua_extra_args = {
   -- '--indent-type',
@@ -24,7 +24,9 @@ null_ls.setup {
   sources = {
     -- formatting.cmake_format,
     -- diagnostics.cmake_lint,
+    diagnostics.markdownlint,
     formatting.clang_format,
+    formatting.markdownlint,
     formatting.stylua.with { extra_args = stylua_extra_args },
     formatting.shfmt.with { extra_args = shfmt_extra_args },
     formatting.black.with { extra_args = black_extra_args },
