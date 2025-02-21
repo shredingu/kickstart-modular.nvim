@@ -233,7 +233,8 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
-        { 'clang-format', version = '13.0.1' },
+        -- { 'clang-format', version = '13.0.1' },
+        'clang-format',
         'cmakelang',
         'shfmt',
         'black',
