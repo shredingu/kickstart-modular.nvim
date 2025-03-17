@@ -20,16 +20,28 @@ local black_extra_args = {
   '80',
 }
 
+local golines_args = {
+  '-m',
+  '100',
+}
+
 null_ls.setup {
   sources = {
     -- formatting.cmake_format,
     -- diagnostics.cmake_lint,
+    diagnostics.staticcheck.with {
+      -- Turn all staticcheck diagnostics into warnings
+      diagnostics_postprocess = function(diagnostic)
+        diagnostic.severity = vim.diagnostic.severity.HINT
+      end,
+    },
     diagnostics.markdownlint,
     formatting.clang_format,
     formatting.markdownlint,
     formatting.stylua.with { extra_args = stylua_extra_args },
     formatting.shfmt.with { extra_args = shfmt_extra_args },
     formatting.black.with { extra_args = black_extra_args },
+    formatting.golines.with { extra_args = golines_args },
   },
   debug = false,
 }

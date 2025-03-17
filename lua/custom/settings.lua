@@ -21,7 +21,7 @@ vim.opt.undodir = utils.get_homedir() .. '/.config/undodir'
 vim.opt.undofile = true
 vim.opt.termguicolors = true
 vim.opt.scrolloff = 8
-vim.opt.colorcolumn = '80'
+vim.opt.colorcolumn = '90'
 vim.opt.signcolumn = 'yes'
 vim.g.mapleader = ' ' -- leader key is space
 vim.opt.fillchars = { diff = '/' }
