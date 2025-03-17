@@ -10,6 +10,8 @@ local lsp_formatting = function(bufnr)
         return false
       elseif client.name == 'clangd' then
         return false
+      elseif client.name == 'gopls' then
+        return false
       elseif client.name == 'null-ls' then
         return true
       else
