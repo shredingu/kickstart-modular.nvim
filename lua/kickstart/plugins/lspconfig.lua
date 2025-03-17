@@ -202,6 +202,8 @@ return {
         'black',
         'shellcheck',
         'markdownlint',
+        'staticcheck',
+        'golines',
       })
 
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
